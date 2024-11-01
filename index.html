@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Egyptian Pre-Dynastic Hard Stone Vases - STL Web Viewer</title>
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="site.webmanifest">
+
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body>
+
+        <header>
+            <h1>STL Web Viewer | Egyptian Pre-Dynastic Hard Stone Vases</h1>
+        </header>
+        <button id="fullscreen" onclick="toggleFullScreen()">📺</button>
+        <footer>
+            <nav>
+                <ul>
+                    <li><a href="./?model=1">Vase 1</a></li>
+                    <li><a href="./?model=2">Vase 1.2</a></li>
+                    <li><a href="./?model=3">Vase 3</a></li>
+                    <li><a href="./?model=5">Vase 5</a></li>
+                </ul>
+                <p>&copy Vase Scan STL Files provided by <a href="https://unchartedx.com/site/vase-scan-resources/">unchartedx.com</a></p>
+            </nav>
+        </footer>
+        <script type="importmap">
+            {
+              "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+              }
+            }
+        </script>
+        <script src="js/actions.js" defer></script>
+        <script type="module" src="js/main.js"></script>
+    </body>
+</html>

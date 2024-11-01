@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Chokokutai&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;    
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: rgb(218, 187, 147);
+    font-family: "Chokokutai", system-ui;
+    font-size: 10px;
+    text-align: center;
+    padding: 10px;
+    text-wrap: balance;
+}
+footer{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: antiquewhite;
+    padding: 30px;
+}
+
+footer nav ul{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+footer nav ul li{
+    list-style: none;
+    text-align: center;
+}
+footer p {
+    text-align: center;
+    margin-top: 10px;
+}
+#fullscreen{position: fixed;z-index: 10;right: 10px;top: 10px;}
