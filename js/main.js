@@ -5,6 +5,7 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 
 let container, stats;
 let camera, cameraTarget, scene, renderer;
+let cameraMove = false;
 
 container = document.createElement( 'div' );
 document.body.appendChild( container );
@@ -31,9 +32,20 @@ scene.add( plane );
 
 plane.receiveShadow = true;
 
+const loadingManager = new THREE.LoadingManager( () => {
+	
+    const loadingScreen = document.getElementById( 'loading-screen' );
+    loadingScreen.classList.add( 'fade-out' );
+    
+    // optional: remove loader from DOM via event listener
+    loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+    
+});
+
+
 
 // LOAD'EM UP!
-const loader = new STLLoader();
+const loader = new STLLoader(loadingManager);
 let mesh;
 window.loadEmUp = function(model) {
     // if(mesh)
@@ -156,13 +168,21 @@ function render() {
 
     const timer = Date.now() * 0.0005;
 
-    // mesh.rotation.z += timer * 0.5;
-
-    // camera.position.x = Math.cos( timer ) * 3;
-    // camera.position.z = Math.sin( timer ) * 3;
-
+//    mesh.rotation.z += timer * 0.5;
+    if(cameraMove) {
+        camera.position.x = Math.cos( timer ) * 3;
+        camera.position.z = Math.sin( timer ) * 3;
+    }
     camera.lookAt( cameraTarget );
 
     renderer.render( scene, camera );
 
+}
+
+window.makeCameraMove = function() {
+    cameraMove = (!cameraMove) ? true : false;
+}
+
+function onTransitionEnd( event ) {
+    event.target.remove();
 }

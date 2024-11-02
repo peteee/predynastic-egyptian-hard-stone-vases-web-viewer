@@ -13,7 +13,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
         <link rel="manifest" href="site.webmanifest">
 
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/app.css?v=3">
     </head>
     <body>
 
@@ -21,7 +21,13 @@
             <h1>STL Web Viewer | Egyptian Pre-Dynastic Hard Stone Vases</h1>
         </header>
         <button id="fullscreen" onclick="toggleFullScreen()">📺</button>
+        
+        <section id="loading-screen">
+            <div id="loader"></div>
+        </section>
+        
         <footer>
+            <button id="rotate-cam" onclick="window.makeCameraMove()">🎥</button>
             <nav>
                 <ul>
                     <li><a href="./?model=1">Vase 1</a></li>
@@ -41,6 +47,6 @@
             }
         </script>
         <script src="js/actions.js" defer></script>
-        <script type="module" src="js/main.js"></script>
+        <script type="module" src="js/main.js?v=2"></script>
     </body>
 </html>
