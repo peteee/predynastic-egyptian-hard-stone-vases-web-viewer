@@ -2,10 +2,13 @@ import * as THREE from 'three';
 import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
 
 let container, stats;
 let camera, cameraTarget, scene, renderer;
 let cameraMove = false;
+
+const progressTxt = document.getElementById( 'progress' );
 
 container = document.createElement( 'div' );
 document.body.appendChild( container );
@@ -24,13 +27,27 @@ scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
 
 const plane = new THREE.Mesh(
     new THREE.PlaneGeometry( 400, 400 ),
-    new THREE.MeshPhongMaterial( { color: 0xcbcbcb, specular: 0x474747 } )
+    new THREE.MeshPhongMaterial( { color: 0xcbcbcb, specular: 0x474747, transparent: true, opacity: .5 } )
 );
 plane.rotation.x = - Math.PI / 2;
 plane.position.y = - 0.5;
 scene.add( plane );
 
 plane.receiveShadow = true;
+
+
+const geometry4 = new THREE.PlaneGeometry( 400, 400 );
+//const geometry5 = new THREE.CircleGeometry( 40, 64 );
+const groundMirror = new Reflector( geometry4, {
+    clipBias: 0.003,
+    textureWidth: window.innerWidth * window.devicePixelRatio,
+    textureHeight: window.innerHeight * window.devicePixelRatio,
+    color: 0xb5b5b5,
+} );
+groundMirror.position.y = -0.501;
+groundMirror.rotateX( - Math.PI / 2 );
+scene.add( groundMirror );
+
 
 const loadingManager = new THREE.LoadingManager( () => {
 	
@@ -41,7 +58,6 @@ const loadingManager = new THREE.LoadingManager( () => {
     loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
     
 });
-
 
 
 // LOAD'EM UP!
@@ -92,6 +108,10 @@ window.loadEmUp = function(model) {
 
         scene.add( mesh );
 
+    }, (xhr) => {
+        const progressXHR = Math.round(xhr.loaded / xhr.total * 100) + " %";
+        //console.log(progressXHR)
+        progressTxt.innerHTML = progressXHR;
     });
 }
 
@@ -114,6 +134,7 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.BasicShadowMap;
 
 container.appendChild( renderer.domElement );
 
@@ -152,6 +173,10 @@ function onWindowResize() {
 
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+    groundMirror.getRenderTarget().setSize(
+        window.innerWidth * window.devicePixelRatio,
+        window.innerHeight * window.devicePixelRatio
+    );
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 
